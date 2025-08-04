@@ -52,38 +52,98 @@ class Program
         if (grade >= 60) return "D";
         return "F";
     }
-    
-     static void RunTicketPriceCalculator()
-{
-    Console.Clear();
-    Console.WriteLine("Ticket Price Calculator");
-    Console.WriteLine("------------------------");
-    
-    Console.Write("Please enter your age: ");
-    
-    if (int.TryParse(Console.ReadLine(), out int age) && age > 0)
+
+    static void RunTicketPriceCalculator()
     {
-        const double standardPrice = 10.0;
-        const double discountedPrice = 7.0;
-        
-        double ticketPrice = (age <= 12 || age >= 65) ? discountedPrice : standardPrice;
-        
-        Console.WriteLine("\nTicket Information:");
-        Console.WriteLine($"Age: {age}");
-        Console.WriteLine($"Ticket Price: GHC{ticketPrice:F2}");
-        
-        if (ticketPrice == discountedPrice)
+        Console.Clear();
+        Console.WriteLine("Ticket Price Calculator");
+        Console.WriteLine("------------------------");
+
+        Console.Write("Please enter your age: ");
+
+        if (int.TryParse(Console.ReadLine(), out int age) && age > 0)
         {
-            Console.WriteLine("Note: Discounted price applied (Senior Citizen or Child)");
+            const double standardPrice = 10.0;
+            const double discountedPrice = 7.0;
+
+            double ticketPrice = (age <= 12 || age >= 65) ? discountedPrice : standardPrice;
+
+            Console.WriteLine("\nTicket Information:");
+            Console.WriteLine($"Age: {age}");
+            Console.WriteLine($"Ticket Price: GHC{ticketPrice:F2}");
+
+            if (ticketPrice == discountedPrice)
+            {
+                Console.WriteLine("Note: Discounted price applied (Senior Citizen or Child)");
+            }
         }
+        else
+        {
+            Console.WriteLine("\nError: Please enter a valid age (positive number).");
+        }
+
+        Console.WriteLine("\nPress any key to return to main menu...");
+        Console.ReadKey();
     }
-    else
+
+    static void RunTriangleTypeIdentifier()
     {
-        Console.WriteLine("\nError: Please enter a valid age (positive number).");
+        Console.Clear();
+        Console.WriteLine("Triangle Type Identifier");
+        Console.WriteLine("-------------------------");
+
+        Console.WriteLine("Enter the lengths of the three sides of the triangle:");
+
+        if (double.TryParse(GetValidInput("First side: "), out double side1) &&
+            double.TryParse(GetValidInput("Second side: "), out double side2) &&
+            double.TryParse(GetValidInput("Third side: "), out double side3))
+        {
+            if (IsValidTriangle(side1, side2, side3))
+            {
+                string triangleType = DetermineTriangleType(side1, side2, side3);
+                Console.WriteLine($"\nThis is a {triangleType} triangle.");
+            }
+            else
+            {
+                Console.WriteLine("\nThese sides do not form a valid triangle.");
+                Console.WriteLine("The sum of any two sides must be greater than the third side.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("\nError: Please enter valid positive numbers for all sides.");
+        }
+
+        Console.WriteLine("\nPress any key to return to main menu...");
+        Console.ReadKey();
     }
-    
-    Console.WriteLine("\nPress any key to return to main menu...");
-    Console.ReadKey();
+
+    static string GetValidInput(string prompt)
+    {
+        string input;
+        do
+        {
+            Console.Write(prompt);
+            input = Console.ReadLine();
+        } while (string.IsNullOrWhiteSpace(input));
+        return input;
+    }
+static bool IsValidTriangle(double a, double b, double c)
+{
+    return a > 0 && b > 0 && c > 0 && 
+           a + b > c && 
+           a + c > b && 
+           b + c > a;
 }
+
+
+static string DetermineTriangleType(double a, double b, double c)
+    {
+        if (a == b && b == c)
+            return "Equilateral (all sides equal)";
+        if (a == b || a == c || b == c)
+            return "Isosceles (two sides equal)";
+        return "Scalene (no sides equal)";
+    }
 
 }
