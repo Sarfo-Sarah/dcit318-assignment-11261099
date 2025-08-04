@@ -8,16 +8,16 @@ class Program
     {
 
     }
-    
+
     static void RunGradeCalculator()
     {
         Console.Clear();
         Console.WriteLine("Grade Calculator");
         Console.WriteLine("----------------");
-        
+
         // Prompt user for numerical grade
         Console.Write("Enter a numerical grade (0-100): ");
-        
+
         // Read and validate input
         if (int.TryParse(Console.ReadLine(), out int numericalGrade))
         {
@@ -25,7 +25,7 @@ class Program
             if (numericalGrade >= 0 && numericalGrade <= 100)
             {
                 string letterGrade = CalculateLetterGrade(numericalGrade);
-                
+
                 // Display the result
                 Console.WriteLine($"\nNumerical Grade: {numericalGrade}");
                 Console.WriteLine($"Letter Grade: {letterGrade}");
@@ -39,9 +39,18 @@ class Program
         {
             Console.WriteLine("Error: Please enter a valid numerical grade.");
         }
-        
+
         Console.WriteLine("\nPress any key to return to main menu...");
         Console.ReadKey();
+    }
+    
+    static string CalculateLetterGrade(int grade)
+    {
+        if (grade >= 90) return "A";
+        if (grade >= 80) return "B";
+        if (grade >= 70) return "C";
+        if (grade >= 60) return "D";
+        return "F";
     }
 
 }
