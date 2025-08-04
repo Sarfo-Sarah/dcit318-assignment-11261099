@@ -43,7 +43,7 @@ class Program
         Console.WriteLine("\nPress any key to return to main menu...");
         Console.ReadKey();
     }
-    
+
     static string CalculateLetterGrade(int grade)
     {
         if (grade >= 90) return "A";
@@ -52,5 +52,38 @@ class Program
         if (grade >= 60) return "D";
         return "F";
     }
+    
+     static void RunTicketPriceCalculator()
+{
+    Console.Clear();
+    Console.WriteLine("Ticket Price Calculator");
+    Console.WriteLine("------------------------");
+    
+    Console.Write("Please enter your age: ");
+    
+    if (int.TryParse(Console.ReadLine(), out int age) && age > 0)
+    {
+        const double standardPrice = 10.0;
+        const double discountedPrice = 7.0;
+        
+        double ticketPrice = (age <= 12 || age >= 65) ? discountedPrice : standardPrice;
+        
+        Console.WriteLine("\nTicket Information:");
+        Console.WriteLine($"Age: {age}");
+        Console.WriteLine($"Ticket Price: GHC{ticketPrice:F2}");
+        
+        if (ticketPrice == discountedPrice)
+        {
+            Console.WriteLine("Note: Discounted price applied (Senior Citizen or Child)");
+        }
+    }
+    else
+    {
+        Console.WriteLine("\nError: Please enter a valid age (positive number).");
+    }
+    
+    Console.WriteLine("\nPress any key to return to main menu...");
+    Console.ReadKey();
+}
 
 }
